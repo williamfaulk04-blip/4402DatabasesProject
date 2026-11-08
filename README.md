@@ -5,6 +5,8 @@ A SQLite database project modeling a simplified restaurant in Gonzales, Louisian
 ## Requirements
 Python 3.10+ with SQLite support. No third-party Python packages are required. Run the commands below from the repository root in your IDE terminal or system terminal.
 
+On Windows, use `python` in place of `python3` in these commands. If neither is recognized but the Python launcher is installed, use `py -3`.
+
 ## Getting started
 The populated `data/restaurant.db` is included. Explore it with:
 
@@ -61,7 +63,7 @@ Use `src/main.py`'s `checkout` function when recording purchases in Python: it v
 ## Team coordination
 Review `docs/scope.md` and `docs/er-diagram.md` together before changing the schema. Replace the placeholders in `docs/responsibilities.md` with actual assignments and contributions. Run the checks before merging changes. Coordinate changes to the binary database file; prefer sharing schema and seed changes that teammates can reproduce.
 
-The project still needs the group's final report, review of the course submission requirements, and completed participation details. The report limit is eight pages, single column, single-spaced, Arial 11 pt.
+The project still needs the group's final report and completed participation details. The report limit is eight pages, single column, single-spaced, Arial 11 pt. See `docs/submission-checklist.md` for the requirement-to-file mapping and final checks.
 
 ## Report diagrams
 PNG images and editable SVG copies are in `docs/diagrams/`: `entity-relationship` and `relational-schema`. The E-R drawing uses compact entity boxes with attributes and relationship diamonds; participation counts are explained in its legend. The relational drawing follows `sql/schema.sql`, including the composite rewards foreign key.
@@ -77,8 +79,18 @@ python3 scripts/local_app.py
 
 Open http://127.0.0.1:8765 in your browser. The interface lets you browse menu items, customers, recent orders, rewards history, and the five reporting queries. You can enroll demo customers, place orders, and redeem points.
 
+The **Manage menu** section supports adding an item and editing its name, category, price in cents, and availability. Expand an item to save changes or delete it. Purchased items cannot be deleted; mark them unavailable instead. Unavailable items remain in menu management and disappear from the order form. Historical orders retain their original prices.
+
+If an action fails, the page displays the error and retains the submitted fields so you can correct them. For a failed menu edit, expand that item's entry again to see the retained values. Successful actions redirect back to the page to avoid resubmitting a purchase on refresh.
+
 The source database is opened read-only and copied into memory. All browser changes affect only that temporary copy. **Reset demo** reloads the original data. Stopping the server with Ctrl+C discards all experiments. Tabs connected to the same server share one temporary session.
 
 To try rewards, select Demo Customer 1 and buy six $10 sandwiches to raise the starting 40 points to 100. Then place another order with the redemption checkbox enabled.
 
 No extra packages are required. If port 8765 is occupied, run `python3 scripts/local_app.py --port 8766` and open http://127.0.0.1:8766 instead. The server listens only on this computer.
+
+## Validation
+
+Run `python3 -m unittest discover -s tests -v` from the repository root. The suite covers rewards, rollback, historical prices, browser menu creation/update/deletion, invalid orders, retained form inputs, enrollment, reset, and request-token validation. Browser tests start their own temporary local server; no separately running server or additional packages are needed. They verify the source database is unchanged.
+
+For a short manual browser walkthrough with expected results, see `docs/browser-testing.md`. These tests exercise a classroom sandbox, not a production service.
