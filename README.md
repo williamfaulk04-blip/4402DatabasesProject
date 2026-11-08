@@ -62,3 +62,23 @@ Use `src/main.py`'s `checkout` function when recording purchases in Python: it v
 Review `docs/scope.md` and `docs/er-diagram.md` together before changing the schema. Replace the placeholders in `docs/responsibilities.md` with actual assignments and contributions. Run the checks before merging changes. Coordinate changes to the binary database file; prefer sharing schema and seed changes that teammates can reproduce.
 
 The project still needs the group's final report, review of the course submission requirements, and completed participation details. The report limit is eight pages, single column, single-spaced, Arial 11 pt.
+
+## Report diagrams
+PNG images and editable SVG copies are in `docs/diagrams/`: `entity-relationship` and `relational-schema`. The E-R drawing uses compact entity boxes with attributes and relationship diamonds; participation counts are explained in its legend. The relational drawing follows `sql/schema.sql`, including the composite rewards foreign key.
+
+The optional `scripts/draw_diagrams.py` renderer requires Pillow and Arial TrueType fonts (paths are set for macOS). These are only needed to regenerate the images, not to use the database or terminal commands.
+
+## Biscuit Lab: local browser sandbox
+Run from the repository root:
+
+```sh
+python3 scripts/local_app.py
+```
+
+Open http://127.0.0.1:8765 in your browser. The interface lets you browse menu items, customers, recent orders, rewards history, and the five reporting queries. You can enroll demo customers, place orders, and redeem points.
+
+The source database is opened read-only and copied into memory. All browser changes affect only that temporary copy. **Reset demo** reloads the original data. Stopping the server with Ctrl+C discards all experiments. Tabs connected to the same server share one temporary session.
+
+To try rewards, select Demo Customer 1 and buy six $10 sandwiches to raise the starting 40 points to 100. Then place another order with the redemption checkbox enabled.
+
+No extra packages are required. If port 8765 is occupied, run `python3 scripts/local_app.py --port 8766` and open http://127.0.0.1:8766 instead. The server listens only on this computer.
