@@ -1,0 +1,47 @@
+Query 1
+order_id | name | quantity | unit_price_cents | line_total_cents
+1 | Demo Biscuit Sandwich | 12 | 1000 | 12000
+
+Query 2
+sale_date | orders | sales_cents
+2026-11-01 | 1 | 12000
+2026-11-02 | 1 | 2000
+2026-11-03 | 6 | 9200
+2026-11-04 | 6 | 10000
+2026-11-05 | 6 | 9850
+2026-11-06 | 6 | 11350
+2026-11-07 | 6 | 11950
+
+Query 3
+name | units_sold
+Demo Juice | 30
+Demo Biscuit Sandwich | 22
+Demo Breakfast Plate | 12
+Demo Coffee | 9
+Demo Fruit Cup | 9
+Demo Side Potatoes | 8
+Demo Tea | 7
+Demo Sweet Biscuit | 7
+
+Query 4
+name | orders_handled
+Demo Employee 1 | 11
+Demo Employee 2 | 11
+Demo Employee 3 | 10
+Demo Employee 4 | 0
+
+Query 5
+name | points_balance
+Demo Customer 1 | 40
+Demo Customer 2 | 0
+Demo Customer 3 | 61
+Demo Customer 4 | 53
+Demo Customer 5 | 33
+Demo Customer 6 | 50
+Demo Customer 7 | 0
+Demo Customer 8 | 36
+Demo Customer 9 | 43
+Demo Customer 10 | 78
+Demo Customer 11 | 67
+Demo Customer 12 | 0
+

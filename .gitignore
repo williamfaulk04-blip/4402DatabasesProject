@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+.DS_Store
+*.db-journal
+*.db-wal
+*.db-shm
+
+.idea/
+*.iml
