@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1800" viewBox="0 0 2400 1800"><rect width="100%" height="100%" fill="white"/>
+<text x="80" y="73.0" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#315e50">VICIOUS BISCUIT  /  CSC4402</text>
+<text x="80" y="149.68" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#243a36">Relational schema</text>
+<text x="80" y="200.76" font-family="Arial, sans-serif" font-size="28" font-weight="400" fill="#586960">Six relations with primary keys, foreign keys, data types, and key constraints.</text>
+<polyline points="830,745 700,745 700,390 620,390" fill="none" stroke="#63796e" stroke-width="4"/>
+<polyline points="638.0089420470536,381.3006893177754 620,390 638.0089420470536,398.6993106822246" fill="none" stroke="#63796e" stroke-width="4"/>
+<rect x="707" y="482" width="69.0" height="36" fill="#ffffff" stroke="#ffffff" stroke-width="3"/>
+<text x="715" y="508.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 1</text>
+<polyline points="830,788 620,788" fill="none" stroke="#63796e" stroke-width="4"/>
+<polyline points="638.0089420470536,779.3006893177754 620,788 638.0089420470536,796.6993106822246" fill="none" stroke="#63796e" stroke-width="4"/>
+<rect x="662" y="742" width="69.0" height="36" fill="#ffffff" stroke="#ffffff" stroke-width="3"/>
+<text x="670" y="768.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 2</text>
+<polyline points="1610,405 1460,405 1460,250 350,250 350,290" fill="none" stroke="#63796e" stroke-width="4"/>
+<polyline points="341.3006893177754,271.99105795294645 350,290 358.6993106822246,271.99105795294645" fill="none" stroke="#63796e" stroke-width="4"/>
+<rect x="1012" y="209" width="69.0" height="36" fill="#ffffff" stroke="#ffffff" stroke-width="3"/>
+<text x="1020" y="235.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 3</text>
+<polyline points="1610,540 1480,540 1480,690 1390,690" fill="none" stroke="#63796e" stroke-width="4"/>
+<polyline points="1408.0089420470536,681.3006893177754 1390,690 1408.0089420470536,698.6993106822246" fill="none" stroke="#63796e" stroke-width="4"/>
+<rect x="1477" y="582" width="69.0" height="36" fill="#ffffff" stroke="#ffffff" stroke-width="3"/>
+<text x="1485" y="608.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 4</text>
+<polyline points="1610,1190 1480,1190 1480,995 1390,995" fill="none" stroke="#63796e" stroke-width="4"/>
+<polyline points="1408.0089420470536,986.3006893177754 1390,995 1408.0089420470536,1003.6993106822246" fill="none" stroke="#63796e" stroke-width="4"/>
+<rect x="1477" y="1107" width="69.0" height="36" fill="#ffffff" stroke="#ffffff" stroke-width="3"/>
+<text x="1485" y="1133.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 5</text>
+<polyline points="1610,1310 620,1310" fill="none" stroke="#63796e" stroke-width="4"/>
+<polyline points="638.0089420470536,1301.3006893177753 620,1310 638.0089420470536,1318.6993106822247" fill="none" stroke="#63796e" stroke-width="4"/>
+<rect x="1052" y="1262" width="69.0" height="36" fill="#ffffff" stroke="#ffffff" stroke-width="3"/>
+<text x="1060" y="1288.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 6</text>
+<rect x="80" y="290" width="540" height="178" fill="#f7faf7" stroke="#63796e" stroke-width="3"/>
+<rect x="80" y="290" width="540" height="66" fill="#315e50" stroke="#315e50" stroke-width="3"/>
+<text x="102" y="333.52" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#ffffff">Customer</text>
+<text x="102" y="395.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">PK  customer_id : INTEGER</text>
+<text x="102" y="438.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     name : TEXT</text>
+<rect x="80" y="720" width="540" height="178" fill="#f7faf7" stroke="#63796e" stroke-width="3"/>
+<rect x="80" y="720" width="540" height="66" fill="#315e50" stroke="#315e50" stroke-width="3"/>
+<text x="102" y="763.52" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#ffffff">Employee</text>
+<text x="102" y="825.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">PK  employee_id : INTEGER</text>
+<text x="102" y="868.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     name : TEXT</text>
+<rect x="80" y="1110" width="540" height="307" fill="#f7faf7" stroke="#63796e" stroke-width="3"/>
+<rect x="80" y="1110" width="540" height="66" fill="#315e50" stroke="#315e50" stroke-width="3"/>
+<text x="102" y="1153.52" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#ffffff">MenuItem</text>
+<text x="102" y="1215.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">PK  menu_item_id : INTEGER</text>
+<text x="102" y="1258.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     name : TEXT</text>
+<text x="102" y="1301.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     category : TEXT</text>
+<text x="102" y="1344.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     price_cents : INTEGER</text>
+<text x="102" y="1387.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     available : INTEGER</text>
+<rect x="830" y="620" width="560" height="393" fill="#f7faf7" stroke="#63796e" stroke-width="3"/>
+<rect x="830" y="620" width="560" height="66" fill="#315e50" stroke="#315e50" stroke-width="3"/>
+<text x="852" y="663.52" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#ffffff">CustomerOrder</text>
+<text x="852" y="725.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">PK  order_id : INTEGER</text>
+<text x="852" y="768.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">FK  customer_id : INTEGER *</text>
+<text x="852" y="811.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">FK  employee_id : INTEGER</text>
+<text x="852" y="854.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     created_at : TEXT</text>
+<text x="852" y="897.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     subtotal_cents : INTEGER</text>
+<text x="852" y="940.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     discount_cents : INTEGER</text>
+<text x="852" y="983.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     paid_cents : INTEGER</text>
+<rect x="1610" y="290" width="690" height="350" fill="#f7faf7" stroke="#63796e" stroke-width="3"/>
+<rect x="1610" y="290" width="690" height="66" fill="#315e50" stroke="#315e50" stroke-width="3"/>
+<text x="1632" y="333.52" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#ffffff">RewardsTransaction</text>
+<text x="1632" y="395.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">PK  transaction_id : INTEGER</text>
+<text x="1632" y="438.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">FK  customer_id : INTEGER</text>
+<text x="1632" y="481.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">FK  order_id : INTEGER</text>
+<text x="1632" y="524.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     points_change : INTEGER</text>
+<text x="1632" y="567.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     transaction_type : TEXT</text>
+<text x="1632" y="610.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">     created_at : TEXT</text>
+<rect x="1610" y="1110" width="690" height="264" fill="#f7faf7" stroke="#63796e" stroke-width="3"/>
+<rect x="1610" y="1110" width="690" height="66" fill="#315e50" stroke="#315e50" stroke-width="3"/>
+<text x="1632" y="1153.52" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#ffffff">OrderItem</text>
+<text x="1632" y="1215.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">PK, FK  order_id : INTEGER</text>
+<text x="1632" y="1258.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">PK, FK  menu_item_id : INTEGER</text>
+<text x="1632" y="1301.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">        quantity : INTEGER</text>
+<text x="1632" y="1344.92" font-family="Arial, sans-serif" font-size="26" font-weight="400" fill="#243a36">        unit_price_cents : INTEGER</text>
+<text x="80" y="1513.0" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#315e50">KEYS &amp; REFERENCES</text>
+<text x="80" y="1558.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">PK = primary key; FK = foreign key. * customer_id is nullable only in CustomerOrder; all other fields are required.</text>
+<text x="80" y="1593.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 1: CustomerOrder.customer_id → Customer.customer_id.  FK 2: CustomerOrder.employee_id → Employee.employee_id.</text>
+<text x="80" y="1628.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 3: RewardsTransaction.customer_id → Customer.customer_id.</text>
+<text x="80" y="1663.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 4 (composite): RewardsTransaction.(order_id, customer_id) → CustomerOrder.(order_id, customer_id).</text>
+<text x="80" y="1698.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">FK 5: OrderItem.order_id → CustomerOrder.order_id.  FK 6: OrderItem.menu_item_id → MenuItem.menu_item_id.</text>
+<text x="80" y="1733.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">OrderItem PK: (order_id, menu_item_id).  UNIQUE: CustomerOrder(order_id, customer_id); RewardsTransaction(order_id, transaction_type).</text>
+<text x="80" y="1768.0" font-family="Arial, sans-serif" font-size="25" font-weight="400" fill="#243a36">Money is stored in cents. Detailed CHECK constraints and defaults are defined in sql/schema.sql.</text>
+</svg>
