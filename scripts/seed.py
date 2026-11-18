@@ -7,8 +7,8 @@ from main import ROOT, DEFAULT_DB, connect, checkout
 
 
 def initialize(path):
-    db=connect(path)
-    db.executescript((ROOT/'sql/schema.sql').read_text())
+    db = connect(path)
+    db.executescript((ROOT / 'sql/schema.sql').read_text())
     with db:
         db.executemany('INSERT INTO Customer(name) VALUES(?)',[(f'Demo Customer {i}',) for i in range(1,13)])
         db.executemany('INSERT INTO Employee(name) VALUES(?)',[(f'Demo Employee {i}',) for i in range(1,5)])
@@ -25,14 +25,15 @@ def initialize(path):
     return db
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reset',action='store_true',help='Delete and rebuild the demonstration database')
     args=parser.parse_args()
     if DEFAULT_DB.exists():
-        if not args.reset: parser.error('Database already exists; use --reset only to discard it')
+        if not args.reset:
+            parser.error('Database already exists. Use --reset to replace it.')
         DEFAULT_DB.unlink()
     DEFAULT_DB.parent.mkdir(exist_ok=True)
-    db=initialize(DEFAULT_DB)
+    db = initialize(DEFAULT_DB)
     db.close()
     print(f'Created {DEFAULT_DB} with 32 completed orders.')

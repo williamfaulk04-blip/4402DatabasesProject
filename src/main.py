@@ -17,7 +17,10 @@ def connect(path=DEFAULT_DB):
 def balance(db, customer):
     if not db.execute('SELECT 1 FROM Customer WHERE customer_id=?', (customer,)).fetchone():
         raise ValueError('Customer does not exist')
-    return db.execute('SELECT COALESCE(SUM(points_change),0) FROM RewardsTransaction WHERE customer_id=?', (customer,)).fetchone()[0]
+    return db.execute(
+        'SELECT COALESCE(SUM(points_change), 0) FROM RewardsTransaction WHERE customer_id = ?',
+        (customer,),
+    ).fetchone()[0]
 
 
 def checkout(db, employee, customer, items, redeem=False, timestamp=None):
@@ -29,7 +32,7 @@ def checkout(db, employee, customer, items, redeem=False, timestamp=None):
     if not quantities:
         raise ValueError('An order needs at least one item')
     db.execute('BEGIN IMMEDIATE')
-    try:
+    with db:
         if not db.execute('SELECT 1 FROM Employee WHERE employee_id=?', (employee,)).fetchone():
             raise ValueError('Employee does not exist')
         points = balance(db, customer) if customer is not None else 0
@@ -44,17 +47,25 @@ def checkout(db, employee, customer, items, redeem=False, timestamp=None):
             raise ValueError('Redemption requires a member with 100 points and a subtotal of at least $5')
         discount = 500 if redeem else 0
         paid = subtotal - discount
-        order = db.execute('INSERT INTO CustomerOrder(customer_id,employee_id,created_at,subtotal_cents,discount_cents,paid_cents) VALUES(?,?,COALESCE(?,CURRENT_TIMESTAMP),?,?,?)', (customer,employee,timestamp,subtotal,discount,paid)).lastrowid
-        db.executemany('INSERT INTO OrderItem VALUES(?,?,?,?)', [(order,*line) for line in lines])
+        order_id = db.execute(
+            '''INSERT INTO CustomerOrder
+               (customer_id, employee_id, created_at, subtotal_cents, discount_cents, paid_cents)
+               VALUES (?, ?, COALESCE(?, CURRENT_TIMESTAMP), ?, ?, ?)''',
+            (customer, employee, timestamp, subtotal, discount, paid),
+        ).lastrowid
+        db.executemany(
+            'INSERT INTO OrderItem VALUES (?, ?, ?, ?)',
+            [(order_id, *line) for line in lines],
+        )
         if customer is not None:
-            for kind, change in [('redeem',-100 if redeem else 0), ('earn',paid//100)]:
-                if change:
-                    db.execute('INSERT INTO RewardsTransaction(customer_id,order_id,points_change,transaction_type,created_at) VALUES(?,?,?,?,COALESCE(?,CURRENT_TIMESTAMP))', (customer,order,change,kind,timestamp))
-        db.commit()
-        return order, paid
-    except Exception:
-        db.rollback()
-        raise
+            changes = [('redeem', -100 if redeem else 0), ('earn', paid // 100)]
+            db.executemany(
+                '''INSERT INTO RewardsTransaction
+                   (customer_id, order_id, points_change, transaction_type, created_at)
+                   VALUES (?, ?, ?, ?, COALESCE(?, CURRENT_TIMESTAMP))''',
+                [(customer, order_id, change, kind, timestamp) for kind, change in changes if change],
+            )
+    return order_id, paid
 
 
 def print_rows(cursor):
@@ -71,6 +82,14 @@ def queries(db):
             print()
 
 
+def order_item(value):
+    try:
+        item_id, quantity = map(int, value.split(':'))
+    except ValueError:
+        raise argparse.ArgumentTypeError('Use ID:QUANTITY with integers') from None
+    return item_id, quantity
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--db', type=Path, default=DEFAULT_DB)
@@ -80,15 +99,21 @@ def main():
     sub.add_parser('enroll').add_argument('name')
     sub.add_parser('balance').add_argument('customer',type=int)
     add = sub.add_parser('menu-add')
-    add.add_argument('name'); add.add_argument('category'); add.add_argument('price_cents',type=int)
+    add.add_argument('name')
+    add.add_argument('category')
+    add.add_argument('price_cents', type=int)
     update = sub.add_parser('menu-update')
-    update.add_argument('item',type=int); update.add_argument('--price-cents',type=int)
+    update.add_argument('item', type=int)
+    update.add_argument('--price-cents', type=int)
     update.add_argument('--available',type=int,choices=[0,1])
     sub.add_parser('menu-delete').add_argument('item',type=int)
     order = sub.add_parser('order')
     order.add_argument('--employee',type=int,required=True)
     order.add_argument('--customer',type=int)
-    order.add_argument('--item',action='append',required=True,help='ID:QUANTITY; repeat for more items')
+    order.add_argument(
+        '--item', type=order_item, action='append', required=True,
+        help='ID:QUANTITY (repeat for more items)',
+    )
     order.add_argument('--redeem',action='store_true')
     args = parser.parse_args()
     if not args.db.is_file():
@@ -110,25 +135,31 @@ def main():
             elif args.command == 'menu-update':
                 if args.price_cents is None and args.available is None:
                     raise ValueError('Provide --price-cents or --available')
-                result = db.execute('UPDATE MenuItem SET price_cents=COALESCE(?,price_cents),available=COALESCE(?,available) WHERE menu_item_id=?',(args.price_cents,args.available,args.item))
-                if not result.rowcount: raise ValueError('Menu item does not exist')
+                result = db.execute(
+                    '''UPDATE MenuItem
+                       SET price_cents = COALESCE(?, price_cents),
+                           available = COALESCE(?, available)
+                       WHERE menu_item_id = ?''',
+                    (args.price_cents, args.available, args.item),
+                )
+                if not result.rowcount:
+                    raise ValueError('Menu item does not exist')
                 print('Menu item updated')
             elif args.command == 'menu-delete':
-                result = db.execute('DELETE FROM MenuItem WHERE menu_item_id=?',(args.item,))
-                if not result.rowcount: raise ValueError('Menu item does not exist')
+                try:
+                    result = db.execute('DELETE FROM MenuItem WHERE menu_item_id = ?', (args.item,))
+                except sqlite3.IntegrityError:
+                    raise ValueError('This item has order history. Set --available 0 to retire it.') from None
+                if not result.rowcount:
+                    raise ValueError('Menu item does not exist')
                 print('Menu item deleted')
             elif args.command == 'queries':
                 queries(db)
             elif args.command == 'order':
-                try:
-                    items = [tuple(map(int, value.split(':'))) for value in args.item]
-                    if any(len(pair)!=2 for pair in items): raise ValueError()
-                except ValueError:
-                    raise ValueError('Each --item must be ID:QUANTITY using integers')
-                order_id, paid = checkout(db,args.employee,args.customer,items,args.redeem)
-                print(f'Order {order_id} completed; paid ${paid/100:.2f}')
-    except (ValueError,sqlite3.Error) as error:
-        parser.exit(1,f'Error: {error}\n')
+                order_id, paid = checkout(db, args.employee, args.customer, args.item, args.redeem)
+                print(f'Order {order_id} completed. Paid ${paid // 100}.{paid % 100:02d}')
+    except (ValueError, OverflowError, sqlite3.Error) as error:
+        parser.exit(1, f'Error: {error}\n')
     finally:
         db.close()
 
